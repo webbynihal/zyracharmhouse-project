@@ -8,8 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const cardBody = btn.closest('.card-body');
-            const productTitle = cardBody.querySelector('.product-title').innerText;
-            const productPrice = cardBody.querySelector('.product-price').innerText;
+            if (!cardBody) return;
+
+            // Use optional chaining and default values to prevent crashes
+            const productTitle = cardBody.querySelector('.product-title')?.innerText || 'Product';
+            const productPrice = cardBody.querySelector('.product-price')?.innerText || 'Price on request';
 
             const phoneNumber = "9100000000"; 
             const message = `Hello Zyra Charm House! I'm interested in ordering:\n\n*Product:* ${productTitle}\n*Price:* ${productPrice}\n\nPlease let me know the process!`;
@@ -22,15 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
             toastTimeout = setTimeout(() => {
                 toast.classList.remove('show');
             }, 3500);
-
-            const target = btn.getAttribute('target');
+            
             if (whatsappUrl) {
                 setTimeout(() => {
-                    if (target === '_blank') {
-                        window.open(whatsappUrl, '_blank');
-                    } else {
-                        window.location.href = whatsappUrl;
-                    }
+                    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
                 }, 1500); 
             }
         });
