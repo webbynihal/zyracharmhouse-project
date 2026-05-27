@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Hamburger Menu Logic
     const hamburger = document.querySelector('.hamburger');
     const navLinksContainer = document.querySelector('.nav-links');
 
@@ -106,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Close menu on link click (mobile)
             navLinksContainer.classList.remove('active');
             if (hamburger) hamburger.classList.remove('open');
             document.body.style.overflow = '';

@@ -303,7 +303,7 @@ footer {
 @media (max-width: 768px) {
     .navbar {
         padding: 0.92rem 4%;
-        background: white; /* Mobile par solid background */
+        background: white; 
         height: 100%;
         z-index: 1010;
     }
@@ -322,7 +322,7 @@ footer {
     .nav-links {
         font-size: 40px;
         position: absolute;
-        top: 70px; /* Navbar ke niche se start ho */
+        top: 70px; 
         left: 0;
         width: 100%;
         height: calc(100vh - 70px);
