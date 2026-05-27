@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const message = `Hello Zyra Charm House! I'm interested in ordering:\n\n*Product:* ${productTitle}\n*Price:* ${productPrice}\n\nPlease let me know the process!`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             
-            toast.classList.add('show');
-            
-            clearTimeout(toastTimeout);
-            
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3500);
+            if (toast) {
+                toast.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3500);
+            }
             
             if (whatsappUrl) {
                 setTimeout(() => {
@@ -80,6 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Hamburger Menu Logic
+    const hamburger = document.querySelector('.hamburger');
+    const navLinksContainer = document.querySelector('.nav-links');
+
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navLinksContainer.classList.toggle('active');
+            hamburger.classList.toggle('open');
+            document.body.style.overflow = navLinksContainer.classList.contains('active') ? 'hidden' : '';
+        });
+    }
+
     const navLinks = document.querySelectorAll('.nav-links a, .brand-name');
     
     navLinks.forEach(link => {
@@ -93,6 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth'
                 });
             }
+
+            // Close menu on link click (mobile)
+            navLinksContainer.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('open');
+            document.body.style.overflow = '';
             
             if (href === '#catalog') {
                 const allFilterBtn = document.querySelector('.filter-btn[data-filter="all"]');
