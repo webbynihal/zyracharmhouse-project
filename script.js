@@ -8,13 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const cardBody = btn.closest('.card-body');
-            if (!cardBody) return;
+            const productCard = btn.closest('.product-card');
+            if (!cardBody || !productCard) return;
 
             const productTitle = cardBody.querySelector('.product-title')?.innerText || 'Product';
             const productPrice = cardBody.querySelector('.product-price')?.innerText || 'Price on request';
+            const productCode = productCard.getAttribute('data-product-code') || 'N/A';
 
             const phoneNumber = "919345310122"; 
-            const message = `Hello Zyra Charm House! I'm interested in ordering:\n\n*Product:* ${productTitle}\n*Price:* ${productPrice}\n\nPlease let me know the process!`;
+            const message = `Hello Zyra Charm House! I'm interested in ordering:\n\n*Product:* ${productTitle}\n*Price:* ${productPrice}\n*Code:* ${productCode}\n\nPlease let me know the process!`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             
             if (toast) {
@@ -110,9 +112,42 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
             
             if (href === '#catalog') {
-                const allFilterBtn = document.querySelector('.filter-btn[data-filter="all"]');
-                if (allFilterBtn) allFilterBtn.click();
+                const defaultBtn = document.querySelector('.filter-btn[data-filter="all"]') || 
+                                   document.querySelector('.filter-btn[data-filter="hampers"]');
+                if (defaultBtn) defaultBtn.click();
             }
         });
+    });
+
+    const initialActiveBtn = document.querySelector('.filter-btn.active');
+    if (initialActiveBtn) {
+        applyFilter(initialActiveBtn.getAttribute('data-filter'), false);
+    }
+
+    const modal = document.getElementById('image-modal');
+    const modalImg = document.getElementById('modal-img');
+    const closeBtn = document.querySelector('.close-modal');
+    const productImages = document.querySelectorAll('.product-img');
+
+    productImages.forEach(img => {
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            modal.style.display = 'flex';
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            document.body.style.overflow = 'hidden'; 
+        });
+    });
+
+    const closeModal = () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = ''; 
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (modal) modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
     });
 });
