@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const productPrice = cardBody.querySelector('.product-price')?.innerText || 'Price on request';
             const productCode = productCard.getAttribute('data-product-code') || 'N/A';
 
-            const phoneNumber = "919345310122"; 
+            const phoneNumber = "916380671521"; 
             const message = `Hello Zyra Charm House! I'm interested in ordering:\n\n*Product:* ${productTitle}\n*Price:* ${productPrice}\n*Code:* ${productCode}\n\nPlease let me know the process!`;
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             
